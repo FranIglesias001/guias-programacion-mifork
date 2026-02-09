@@ -19,7 +19,10 @@ Por favor, escribe en impersonal las respuestas.
 
 Las cuatro características fundamentales de la programación orientada a objetos (POO) son **abstracción, encapsulamiento, herencia y polimorfismo**. Estas ideas permiten organizar los programas de forma más cercana a cómo se perciben los objetos del mundo real, facilitando el diseño y mantenimiento del software.
 
-La **abstracción** consiste en quedarse con las características esenciales de un objeto y ocultar los detalles innecesarios. El **encapsulamiento** implica agrupar datos y funciones dentro de una misma estructura (la clase) y controlar el acceso a ellos. La **herencia** permite crear nuevas clases a partir de otras existentes, reutilizando código. El **polimorfismo** permite que un mismo método tenga diferentes comportamientos según el objeto que lo utilice.
+- La **abstracción** consiste en quedarse con las características esenciales de un objeto y ocultar los detalles innecesarios. 
+- El **encapsulamiento** implica agrupar datos y funciones dentro de una misma estructura (la clase) y controlar el acceso a ellos. 
+- La **herencia** permite crear nuevas clases a partir de otras existentes, reutilizando código. Prof: Establece jerarquias.
+- El **polimorfismo** permite que un mismo método tenga diferentes comportamientos según el objeto que lo utilice.
 
 ---
 
@@ -27,7 +30,9 @@ La **abstracción** consiste en quedarse con las características esenciales de 
 
 ### Respuesta
 
-Existen muchos lenguajes que soportan programación orientada a objetos. Entre los más populares se encuentran **Java, C++, Python y C#**. Todos ellos permiten definir clases, crear objetos y aplicar los principios básicos de la POO.
+Existen muchos lenguajes que soportan programación orientada a objetos. Entre los más populares se encuentran **Java, C++, Python y C#**. Todos ellos permiten definir clases, crear objetos y aplicar los principios básicos de la POO. Prof: son compilados, comprobación estática de tipos.  
+Diferencias: Java y C# tienen recolector de basura, C++ y Rust no.
+JavaScript y Python son dinámicos.
 
 Cada uno implementa estos conceptos con ligeras diferencias. Por ejemplo, Java y C# están muy centrados en clases, Python es más flexible y combina varios paradigmas, y C++ mezcla programación estructurada y orientada a objetos.
 
@@ -41,6 +46,8 @@ La **programación estructurada** es un paradigma anterior a la POO que organiza
 
 La **programación modular** se centra en dividir un programa grande en partes más pequeñas llamadas módulos o funciones. Cada módulo se encarga de una tarea concreta, lo que facilita el mantenimiento y la reutilización del código.
 
+Prof: antes de la programación estructurada estaba lenguaje ensamblador, mediante secuencia y saltos arbitrarios, código plano con saltos incontrolados (goto). La programación estructurada mejora la legibilidad y mantenibilidad del código. La programación modular lleva esto un paso más allá, permitiendo dividir el programa en partes independientes que pueden ser desarrolladas y probadas por separado.
+
 ---
 
 ## 4. ¿Qué tres elementos definen a un objeto en POO?
@@ -49,7 +56,9 @@ La **programación modular** se centra en dividir un programa grande en partes m
 
 Un objeto se define por **estado, comportamiento e identidad**. Estos tres elementos permiten diferenciar un objeto de otro dentro de un programa.
 
-El **estado** está formado por los datos que posee (atributos). El **comportamiento** está formado por las acciones que puede realizar (métodos). La **identidad** permite distinguir un objeto de otro, incluso si tienen los mismos valores en sus atributos.
+- El **estado** está formado por los datos que posee (atributos). Lo que en los structs son los campos de datos.
+- El **comportamiento** está formado por las acciones que puede realizar (prof: métodos, son las funciones que todos los objetos de esa clase pueden hacer). 
+- La **identidad** permite distinguir un objeto de otro, incluso si tienen los mismos valores en sus atributos. PROF: otra dirección de memoria.
 
 ---
 
@@ -57,10 +66,9 @@ El **estado** está formado por los datos que posee (atributos). El **comportami
 
 ### Respuesta
 
-Una **clase** es una plantilla o modelo que define cómo serán los objetos: qué datos tendrán y qué acciones podrán realizar. No es lo mismo que un objeto, sino la definición a partir de la cual se crean.
+Una **clase** es una plantilla o modelo que define cómo serán los objetos: qué datos tendrán y qué acciones podrán realizar. No es lo mismo que un objeto, sino la definición a partir de la cual se crean. prof: molde para crear instancias durante la ejecución. Define la estructura del estado (atributos) y el comportamiento (métodos).
 
-Un **objeto** es una **instancia** concreta de una clase, es decir, un elemento real creado a partir de esa plantilla. No todos los lenguajes orientados a objetos usan clases de la misma forma; algunos, como Java, están totalmente basados en clases, mientras que otros, como JavaScript, usan modelos basados en prototipos.
-
+Un **objeto** es una **instancia** concreta de una clase, es decir, un elemento real creado a partir de esa plantilla. No todos los lenguajes orientados a objetos usan clases de la misma forma; algunos, como Java, están totalmente basados en clases, mientras que otros, como JavaScript, usan modelos basados en prototipos. prof: vaiables de tipo de alguna clase con un estado concreto en memoria.
 ---
 
 ## 6. ¿Dónde se almacenan en memoria los objetos? ¿Es igual en todos los lenguajes? ¿Qué es la recolección de basura?
@@ -81,6 +89,26 @@ Un **método** es una función definida dentro de una clase que describe el comp
 
 La **sobrecarga de métodos** ocurre cuando existen varios métodos con el mismo nombre pero con distintos parámetros. El compilador decide cuál usar según los argumentos proporcionados.
 
+prof:
+
+```java
+class Calculadora {
+    int suma(int a, int b) {
+        return a + b;
+    }
+    // es necesario cambiar al menos alguno de los parametros. No es suficiente ni necesario el tipo de retorno.
+    double suma(double a, double b) {
+        return a + b;
+    }
+}
+
+main {
+    Calculadora calc = new Calculadora();
+    int resultado1 = calc.suma(2, 3); // Llama al primer método
+    double resultado2 = calc.suma(2.5, 3.5); // Llama al segundo método
+}
+```
+
 ---
 
 ## 8. Clase `Punto` en Java
@@ -89,9 +117,11 @@ La **sobrecarga de métodos** ocurre cuando existen varios métodos con el mismo
 
 ```java
 class Punto {
+    // Estado (atributos)
     double x;
     double y;
 
+    // Comportamiento (métodos)
     double calculaDistanciaAOrigen() {
         return Math.sqrt(x * x + y * y);
     }
