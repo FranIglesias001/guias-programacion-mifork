@@ -79,6 +79,14 @@ En muchos lenguajes, los objetos se almacenan en una zona de memoria llamada **h
 
 La **recolección de basura** es un mecanismo automático que libera la memoria de objetos que ya no se usan. Esto evita que el programador tenga que liberar la memoria manualmente.
 
+Prof:
+Ventajas:
+- Reservo dinámicamente, el tamaño se decide en ejecución.
+- Lo que estña enn el heap, vive más allá que el método o función donde se ha creado
+Desventajas:
+- Hay que liberarla cuando ya no se necesita.
+    - De forma manual (más difícil).
+    - De forma auomática (mediante recolector de basura).
 ---
 
 ## 7. ¿Qué es un método? ¿Qué es la sobrecarga de métodos?
@@ -149,6 +157,15 @@ El punto de entrada de un programa en Java es el método `main`. Es el primer m�
 
 La palabra clave **`static`** indica que un elemento pertenece a la clase y no a los objetos. No se usa solo en `main`, también en variables y métodos compartidos. **`final`** indica que algo no puede modificarse o redefinirse.
 
+- No existe this.
+- No se necesita un objeto para usarlos. Desde fuera se usa el nombre de la clase.
+- No puedo usar desde un método static nada que no sea **static**.
+- No abusar.
+
+Desventaja:
+- herencia.
+- no se puede sobreescribir.
+
 ---
 
 ## 10. Compilar y ejecutar Java
@@ -169,6 +186,11 @@ Java es un lenguaje compilado a un formato intermedio llamado **bytecode**. Este
 ### Respuesta
 
 La palabra **`new`** crea un objeto en memoria. Un **constructor** es un método especial que se ejecuta al crear el objeto.
+prof:
+New:
+1. Reserva memoria.
+2. Invoca constructor.
+3. Es una expresión (puedo asignarla a una variable, o usarla directamente en línea).
 
 ```java
 class Empleado {
@@ -191,6 +213,11 @@ class Empleado {
 ### Respuesta
 
 `this` es una referencia al propio objeto que está ejecutando el método. Se usa para diferenciar atributos del objeto de variables locales.
+prof:
+1. Referencia al objeto actual.
+2. Sirve para desambiguar, o aclarar.
+3. No está disponible en métodos static.
+4. Otros lenguajes: puede ener otroo nombre (self en Pyhthon).
 
 ```java
 this.x = x;
@@ -224,6 +251,10 @@ En Java, los objetos se pasan por copia de la referencia. Se puede modificar el 
 
 Los tipos primitivos como `int` se pasan por copia del valor. Los cambios dentro del método no afectan fuera.
 
+prof:
+Cómo son los pasos por parámetros:
+- Primitivos -> por valor.
+- Objetos -> por copia de la referencia.
 ---
 
 ## 15. `toString()`

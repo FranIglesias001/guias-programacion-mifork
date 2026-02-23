@@ -24,6 +24,11 @@ Al ocultar los detalles internos, se evita que otras partes del programa dependa
 
 Entre las ventajas se encuentran una mayor robustez del programa, menor acoplamiento entre clases, mejor mantenimiento del código y reducción de errores derivados de modificaciones no controladas del estado de los objetos.
 
+Prof:
+Encapsulación, tiene que ver con "Protección". He juntado estado y comportamiento en un artefacto (clase), y ahora puedo ocultar ciertas partes del exterior.
+- Evito estados no validos de mas objetos.
+- Evito dependencias desde fuera que no quiero.
+
 ---
 
 ## 2. ¿Qué es la interfaz pública de una clase? Relación con la ocultación
@@ -35,6 +40,9 @@ La **interfaz pública** de una clase está formada por el conjunto de métodos 
 La ocultación de información permite que solo esta interfaz sea visible, mientras que los detalles internos quedan escondidos. De esta forma, quien usa la clase no necesita conocer cómo funciona internamente, solo qué servicios ofrece.
 
 Esta separación mejora la claridad del diseño y facilita la reutilización de clases sin riesgo de uso incorrecto.
+
+Prof:
+Interfaz pública -> los miembros que se ven desde fuera, es decir, los que no están ocultos.
 
 ---
 
@@ -48,6 +56,9 @@ No suele ser fácil cambiar una interfaz pública sin romper compatibilidad. Por
 
 Un diseño conservador de la interfaz favorece la estabilidad y la evolución del software a largo plazo.
 
+Prof:
+La interfaz oública si se cambia tiene más consecuencias que cualquier cambio en la parte oculta
+
 ---
 
 ## 4. Invariantes de clase y ocultación
@@ -60,6 +71,8 @@ La ocultación de información ayuda a mantener estas invariantes, ya que evita 
 
 De este modo, se garantiza que cualquier modificación pasa por controles definidos por la propia clase.
 
+Prof:
+Invariantes de clase: condicion quie los objetos de esa clase deben cumplir para ser válidos durante toda su vida.
 ---
 
 ## 5. Ejemplo de clase `Punto` con encapsulación
@@ -364,3 +377,71 @@ public enum Mes {
 
 ---
 
+Entendido. Vamos a adaptar tu respuesta anterior a la nueva estructura dividida (Pregunta 23 y 24) y luego repasamos los comandos de Git para que no se te escape nada en la entrega.
+
+Aquí tienes el contenido en Markdown para copiar y pegar en tu archivo `tema_2_encapsulacion.md`:
+
+---
+
+## 23. Crea un tipo enumerado en Java que se llame `Mes`, con doce posibles instancias y que además proporcione métodos para obtener cuántos días tiene ese mes, el ordinal de ese mes en el año (1-12), empleando atributos privados y constructores del tipo enumerado.
+
+### Respuesta
+
+En Java, un enumerado se comporta como una clase especial que permite definir un conjunto fijo de constantes. Al utilizar atributos privados como `dias` y `orden`, se aplica el principio de encapsulación, asegurando que esta información solo pueda ser consultada a través de métodos públicos (getters) y no modificada desde el exterior.
+
+El uso de un constructor en un `enum` permite que cada instancia (como `ENERO` o `FEBRERO`) se inicialice con valores específicos de forma inmutable. Esto es mucho más robusto que el uso de constantes enteras en lenguajes como C, ya que se garantiza la seguridad de tipos y se agrupa el estado y el comportamiento en una misma entidad.
+
+```java
+public enum Mes {
+    ENERO(31, 1), FEBRERO(28, 2), MARZO(31, 3), ABRIL(30, 4),
+    MAYO(31, 5), JUNIO(30, 6), JULIO(31, 7), AGOSTO(31, 8),
+    SEPTIEMBRE(30, 9), OCTUBRE(31, 10), NOVIEMBRE(30, 11), DICIEMBRE(31, 12);
+
+    private int dias;
+    private int orden;
+
+    // Constructor del enumerado
+    Mes(int dias, int orden) {
+        this.dias = dias;
+        this.orden = orden;
+    }
+
+    public int getDias() {
+        return dias;
+    }
+
+    public int getOrden() {
+        return orden;
+    }
+}
+
+```
+
+## 24. Añade a la clase `Mes` del ejercicio anterior cuatro métodos para devolver si ese mes tiene algunos días de invierno, primavera, verano u otoño, indicando con un booleano el hemisferio (norte o sur, parámetro `enHemisferioNorte`). Es decir: `esDePrimavera(boolean esHemisferioNorte)`, `esDeVerano(boolean esHemisferioNorte)`, `esDeOtoño(boolean esHemisferioNorte)`, `esDeInvierno(boolean esHemisferioNorte)`
+
+### Respuesta
+
+La implementación de la lógica estacional dentro del enumerado permite centralizar el conocimiento sobre el calendario en la propia clase `Mes`. Mediante el uso del parámetro booleano `norte`, se puede realizar un cálculo condicional que alterna los rangos de los meses según la inclinación del hemisferio, aprovechando el atributo `orden` para las comparaciones lógicas.
+
+Este enfoque demuestra la potencia de los enumerados en Java frente a otros lenguajes: no solo actúan como etiquetas, sino que pueden contener lógica compleja. Al utilizar operadores ternarios o estructuras condicionales, se determina si el mes actual pertenece a una estación específica, facilitando la legibilidad del código externo que solo necesita llamar al método correspondiente.
+
+```java
+    public boolean esDePrimavera(boolean norte) {
+        return norte ? (orden >= 3 && orden <= 5) : (orden >= 9 && orden <= 11);
+    }
+
+    public boolean esDeVerano(boolean norte) {
+        return norte ? (orden >= 6 && orden <= 8) : (orden == 12 || orden <= 2);
+    }
+
+    public boolean esDeOtono(boolean norte) {
+        return norte ? (orden >= 9 && orden <= 11) : (orden >= 3 && orden <= 5);
+    }
+
+    public boolean esDeInvierno(boolean norte) {
+        return norte ? (orden == 12 || orden <= 2) : (orden >= 6 && orden <= 8);
+    }
+
+```
+
+---
