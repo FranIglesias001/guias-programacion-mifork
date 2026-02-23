@@ -416,11 +416,6 @@ public enum Mes {
 }
 ```
 
----
-
-Entendido. Vamos a adaptar tu respuesta anterior a la nueva estructura dividida (Pregunta 23 y 24) y luego repasamos los comandos de Git para que no se te escape nada en la entrega.
-
-Aquí tienes el contenido en Markdown para copiar y pegar en tu archivo `tema_2_encapsulacion.md`:
 
 ---
 
