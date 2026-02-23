@@ -111,6 +111,10 @@ En Java, los modificadores `public` y `private` pueden aplicarse a **clases, atr
 
 Este mecanismo es la base de la encapsulación en Java.
 
+Prof:
+- Public: clases, atributos y métodos
+- Private: clases internas(no las estamos viendo), atributos y métodos.
+
 ---
 
 ## 7. Tipos de visibilidad
@@ -123,6 +127,9 @@ Además de `public` y `private`, existen otros tipos de visibilidad. En Java exi
 
 Esto permite un control más fino sobre qué partes del código pueden acceder a ciertos miembros.
 
+Prof:
+- Protected, solo se ve desde "subclases". (Las veremos en el tema de herencia).
+- "package.private" o sin modificador, solo se ve desde el paquete.
 ---
 
 ## 8. Acceso a miembros privados entre instancias
@@ -141,6 +148,8 @@ public double calcularDistanciaAPunto(Punto otro) {
 
 Esto es posible porque el acceso se realiza desde el código de la clase `Punto`, no desde una clase externa.
 
+Prof:
+- La a), está oculto para código de otras clases.
 ---
 
 ## 9. Getters y setters
@@ -152,6 +161,9 @@ Los métodos **getter** permiten leer el valor de un atributo privado, mientras 
 Estos métodos actúan como intermediarios entre el exterior y el estado interno del objeto. Permiten validar valores, mantener invariantes o ejecutar lógica adicional.
 
 Son una herramienta fundamental para aplicar encapsulación sin perder flexibilidad.
+
+prof:
+"getter" y "setter" permiten dar acceso a atributos privados para obtener su valor o cambiarlo.
 
 ---
 
@@ -165,6 +177,9 @@ La ocultación evita usos incorrectos de los objetos, protege invariantes y redu
 
 Es una seguridad orientada a la calidad y robustez del software.
 
+Prof:
+- No, esto no es ciberseguridad, es facilitar una programación con menos bugs.
+
 ---
 
 ## 11. Miembros de instancia y de clase
@@ -177,6 +192,10 @@ Los miembros de clase también pueden ocultarse usando `private`. La encapsulaci
 
 En Java, los miembros de clase se indican con la palabra clave `static`.
 
+Prof:
+- Miembro de clase -> no asociado a ninguna instancia; es compartido por todas las instancias.
+- Miembro de instancia -> está asociado a cada instancia; no son compartidos.
+
 ---
 
 ## 12. Constructores privados
@@ -188,6 +207,12 @@ Tiene sentido que los constructores sean privados en ciertos casos, por ejemplo 
 Esto se utiliza en patrones como el **Singleton** o en clases con métodos factoría. El objetivo es controlar cómo y cuántas instancias se crean.
 
 No es lo habitual, pero es una herramienta válida de encapsulación.
+
+Prof:
+- A veces:
+    - Un constructor auxiliar oculto, llamado desde otros constructores públicos.
+    - Cuando usan métodos factoría.
+    - Cuando quiero controlar el nº de instancias.
 
 ---
 
@@ -269,6 +294,13 @@ La convención habitual es declarar los atributos como `private`. Esto está dir
 
 Permite añadir validaciones y lógica adicional en el futuro.
 
+Prof:
+Si los hago públicos:
+- Para poder garantizar la invariante de clase.
+- Para poder cambiar la representación interna.
+- Convención es:
+ - Atributos siempre privados y emplear métodos de acceso.
+
 ---
 
 ## 17. Clases inmutables
@@ -279,6 +311,10 @@ Una clase es **inmutable** cuando su estado no puede cambiar tras su creación. 
 
 Un **método modificador** es aquel que cambia el estado del objeto, y no siempre es un setter. La inmutabilidad ofrece ventajas como mayor seguridad, simplicidad y facilidad para trabajar en entornos concurrentes.
 
+Prof:
+Inumatable -> su estado no cambia.
+Mdificador -> cualquier método que cambia el estado interno, por ejemplo: un setter.
+Las clases inmutables tienen ventajas -> no hacer clases mutables por defecto.
 ---
 
 ## 18. ¿Setters siempre?
@@ -288,6 +324,9 @@ Un **método modificador** es aquel que cambia el estado del objeto, y no siempr
 No es recomendable incluir setters siempre por convención. Exponer setters innecesarios rompe la encapsulación y puede poner en riesgo las invariantes.
 
 Solo deben incluirse cuando modificar el estado tenga sentido desde el punto de vista del diseño. Menos interfaz pública suele implicar mejor diseño.
+
+Prof:
+Por convención no, porque sino solo haría clases matuables.
 
 ---
 
@@ -299,6 +338,8 @@ La clase `String` en Java es **inmutable**. Al concatenar cadenas, se crea un nu
 
 Si se necesita concatenar muchas veces, es preferible usar `StringBuilder` o `StringBuffer`, que son mutables y más eficientes.
 
+Prof:
+String es inmutable.
 ---
 
 ## 20. Comparación de objetos
