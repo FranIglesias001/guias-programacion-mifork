@@ -313,7 +313,7 @@ Un **método modificador** es aquel que cambia el estado del objeto, y no siempr
 
 Prof:
 Inumatable -> su estado no cambia.
-Mdificador -> cualquier método que cambia el estado interno, por ejemplo: un setter.
+Modificador -> cualquier método que cambia el estado interno, por ejemplo: un setter.
 Las clases inmutables tienen ventajas -> no hacer clases mutables por defecto.
 ---
 
