@@ -340,6 +340,10 @@ Si se necesita concatenar muchas veces, es preferible usar `StringBuilder` o `St
 
 Prof:
 String es inmutable.
+String eltitulo = libro.getTitulo();
+elTitulo.setCharAt(0,'A'); // no funciona
+elTitulo.substring(0,7);
+elTitulo.append("mas texto"); (StringBuilder, se usa para usar Strings muy largas, encadenandolas mediante .append)
 ---
 
 ## 20. Comparación de objetos
@@ -350,6 +354,16 @@ Los objetos pueden compararse por **identidad** o por **contenido**. En Java, `=
 
 El método `equals` compara contenido. Por defecto, se comporta como `==`, pero suele redefinirse. Las cadenas deben compararse siempre con `equals`, no con `==`.
 
+Prof:
+A) Por identidad -> mismo objeto en memoria.
+B) Por contenido -> Mismo estado (valor en sus atributos).
+
+String s1 = new String("hola");
+String s2 = new String("hola);
+
+if (s1==s2) --> devuelve false porque s1 y s2 aunque ambos tengan el mismo contenido, tienen distinta dirección de memoria
+if (s1.equals(s2))-> devuelve true, porque es la forma correcta para comparar objetos.
+equals: por defecto hace comparación por identidad(==), excepto en clases concretas donde se implementa una comparación por contenido, por ejemplo en String.
 ---
 
 ## 21. Clases wrapper
@@ -360,6 +374,21 @@ Las clases **wrapper** encapsulan tipos primitivos en objetos, como `Integer` pa
 
 Permiten usar tipos primitivos en contextos donde se requieren objetos. No todos los lenguajes tienen tipos primitivos ni necesitan wrappers.
 
+Prof:
+- Ocurren en lenguajes que tienen tipos primitivos, por ejemplo Java.
+- Otros lenguajes no tienen tipos primitivos, como Python.
+    - int <=> Integer
+    - float <=> Float
+    - char <=> Character
+- Añadirle comportamiento
+- Poder usarlos en contestos donde se necesitan objetos. <List>.
+
+
+Integer i = 7; // Autoboxing
+- Integer i = new Integer(7);
+
+int j = i; // Unboxing
+int j = i.intValue();
 ---
 
 ## 22. Tipos enumerados
@@ -369,6 +398,14 @@ Permiten usar tipos primitivos en contextos donde se requieren objetos. No todos
 Un tipo enumerado representa un conjunto fijo de valores posibles. En Java, un `enum` es una clase especial.
 
 Los enumerados permiten encapsular datos y comportamiento, evitando valores inválidos y mejorando la claridad del código.
+
+Prof:
+Enumerado es un tipo con un número determinado de valores posibles.
+En Java un enumerado es una clase, cuyas instancias son finitas, conocidas de antemano, tienen un nombre cada una (valor de enumerado).
+
+private TipoIVA (double factor){
+    this.factr = factor;
+}
 
 ---
 
