@@ -71,6 +71,10 @@ El objetivo principal al usar excepciones es separar claramente el código que i
 
 Por otro lado, cuando se llama a una función, el mecanismo de excepciones obliga, o al menos permite de forma muy limpia, que el desarrollador prevea qué hacer si algo falla. Esto evita que los errores pasen desapercibidos (como ocurre a menudo en C si se olvida comprobar un `if (error != 0)`) y proporciona un canal seguro para delegar la responsabilidad del error a niveles superiores de la aplicación.
 
+Prof:
+Excepción -> srge en situaciones atípicas.
+    - Cuando implementamos -> Nos permite indicar más claramente el error.
+    - Cuando llamamos -> me facilta separar la lógica normal de la de reacción o manejo de la situación errónea.
 ## 3. Reescribe el mismo ejemplo de raiz, pero en Java, metiendo ese método en una clase `Calculadora` y llama a dicho método desde el método `main`, mostrando cómo se puede controlar desde fuera.
 
 ### Respuesta
@@ -144,6 +148,10 @@ Al ser simples clases, es completamente posible y muy recomendable crear excepci
 ## 7. En relación con las ventajas de la encapsulación, comparando el ejemplo en C con Java. ¿Qué **información esencial** lleva cualquier **objeto excepción** que es muy útil tener cuando se llega a un manejador?
 
 ### Respuesta
+Prof:
+a. Un mensaje (getMessage()).
+b. La traza de la pila (getSrackTrace, printStackTrace).
+c. Opcionalmente, la "Causa", es otra excepción que es la verdadera causa
 
 En el ejemplo de C, la única información transmitida hacia el manejador es un número entero (`1` o `-1.0`). Para entender qué significa ese número, el programador debe consultar documentación externa o variables globales, y carece por completo de contexto sobre en qué línea exacta del código ocurrió el fallo, especialmente en sistemas complejos.
 
@@ -158,6 +166,12 @@ Por último, y quizás lo más importante para la depuración, el objeto excepci
 Sí, es completamente posible encadenar varios bloques `catch` sucesivos después de un único bloque `try`. Esto se utiliza habitualmente cuando el código protegido dentro del `try` es susceptible de disparar distintos tipos de errores (por ejemplo, podría fallar por formato de número inválido o por intentar leer de un fichero inexistente), permitiendo definir un tratamiento o un mensaje específico para cada situación concreta.
 
 Sin embargo, de todos los bloques `catch` definidos, **solo se ejecuta como máximo uno**. Cuando se lanza la excepción en el `try`, la máquina virtual de Java inspecciona los `catch` de arriba hacia abajo. En el momento en que encuentra el primer bloque cuyo tipo de excepción coincida (o sea una clase padre) con el de la excepción lanzada, entra en ese bloque, ejecuta su código, e ignora automáticamente todos los bloques `catch` restantes, saltando al final de la estructura de control.
+
+Prof:
+- Puede haber t de un catch
+- Se ejecuta UNO:
+    - Se va comprobando por orden de declaración del catch, el primero que encaje es el que se ejecuta.
+    => NOTA: se deben ordenar de más específica a más general (de arriba a abajo).
 
 ## 9. Si las excepciones producen rupturas en el código llamador, ¿cómo podemos garantizar que se ejecuta siempre finalmente un código necesario para cierre de ficheros, liberacion de recursos, antes de que continúe propagándose la excepción? Pon un ejemplo en Java con `finally`, tanto con `catch` como sin él.
 
@@ -225,6 +239,11 @@ El papel divisor lo juega la clase `RuntimeException`. Cualquier clase de excepc
 * Intentar invocar un método sobre una variable que apunta a `null` por un olvido en la instanciación.
 * *(General)*: Situaciones que reflejan fallos lógicos o *bugs* directos en el código escritos por el programador, donde la recuperación no tiene sentido y el programa debe ser corregido en desarrollo.
 
+Prof:
+- Excepciones "controladas" => Típicamente errores por casusas externas y que sempre pueden llegar a ocurrir, ej: errores de E/S. (Obliga a poner try-catch/throws).
+
+- Excepciones "no controladas" => Típicamente errores de programación que, una vez solventados no vuelven a ocurrir. (No estamos obligados a poner try-catch/throws).
+
 ## 12. ¿Qué es y para qué se usa `throws`? ¿Por qué es alternativa a capturar una excepción controlada?
 
 ### Respuesta
@@ -273,6 +292,13 @@ Incluso si un método declara `throws IllegalArgumentException`, el método llam
 
 El sentido principal de hacer esto no es técnico, sino puramente documental. Incluir una excepción no controlada en el `throws` es una forma explícita e integrada en el código de advertir a otros programadores de la API (y de informar a las herramientas automáticas de generación de documentación como Javadoc) sobre las precondiciones estrictas de la función y los posibles fallos de lógica que pueden provocar una ruptura abrupta del flujo.
 
+Prof:
+- por poder se puede RunTimeException
+- El compilador no obliga a try-catch/throws en el código llamador.
+- Por propósitos de documentación
+- No es lo habitual
+
+
 ## 15. ¿Cuándo se recomienda usar excepciones controladas, como `IOException`, y cuándo no controladas como `IllegalArgumentException`? ¿Existen en todos los lenguajes ambas opciones? En los que sólo existe una opción, ¿cuál es la más habitual?
 
 ### Respuesta
@@ -282,6 +308,10 @@ La recomendación general en el diseño de software establece que se deben utili
 No todos los lenguajes de programación poseen esta dicotomía. La división entre excepciones controladas y no controladas es una característica bastante específica de Java. Otros lenguajes modernos o ampliamente usados, como C#, C++, Python, Ruby o JavaScript, no hacen esta distinción formal a nivel de compilador.
 
 En aquellos lenguajes que no disponen de la doble opción, la alternativa que prevalece de manera unánime es el uso de **excepciones no controladas**. En la evolución del diseño de lenguajes, se ha llegado a la conclusión mayoritaria de que obligar explícitamente a controlar excepciones (como hace Java con las controladas) genera código muy acoplado e inunda los programas de bloques vacíos donde los desarrolladores atrapan y silencian el error para calmar al compilador. Por ello, la tendencia general es permitir que cualquier excepción fluya libremente, asumiendo que el programador sabrá controlarla en la capa arquitectónica más adecuada.
+
+Prof:
+- No hay ambas opciones en todos los lenguajes.
+- La más típica es la de "no controladas".
 
 ## 16. ¿Tiene sentido lanzar excepciones dentro del `catch`? ¿Se puede relanzar la misma excepción capturada? ¿Cuándo tendría sentido hacer esto último? Pon ejemplos de ambos casos.
 
@@ -317,6 +347,10 @@ public void procesarTransaccion() {
 }
 
 ```
+Prof:
+- Sí, tiene sentido.
+- Sí se puede re-lanzar el mismo objeto excepción, tras, por ejemplo, haber ejecutado algo en catch.
+
 
 ## 17. ¿En qué consiste que una excepción sea la **"causa"** de otra excepción? Pon un ejemplo en Java, donde capturemos una excepción de bajo nivel y la encapsulemos en otra personalizada de alto nivel. Cuando una excepción sale por pantalla y tiene una causa, ¿se ve?
 

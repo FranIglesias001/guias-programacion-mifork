@@ -72,7 +72,7 @@ La ocultación de información ayuda a mantener estas invariantes, ya que evita 
 De este modo, se garantiza que cualquier modificación pasa por controles definidos por la propia clase.
 
 Prof:
-Invariantes de clase: condicion quie los objetos de esa clase deben cumplir para ser válidos durante toda su vida.
+Invariantes de clase: condicion que los objetos de esa clase deben cumplir para ser válidos durante toda su vida.
 ---
 
 ## 5. Ejemplo de clase `Punto` con encapsulación
@@ -340,10 +340,12 @@ Si se necesita concatenar muchas veces, es preferible usar `StringBuilder` o `St
 
 Prof:
 String es inmutable.
+```java
 String eltitulo = libro.getTitulo();
 elTitulo.setCharAt(0,'A'); // no funciona
 elTitulo.substring(0,7);
 elTitulo.append("mas texto"); (StringBuilder, se usa para usar Strings muy largas, encadenandolas mediante .append)
+```
 ---
 
 ## 20. Comparación de objetos
@@ -383,12 +385,13 @@ Prof:
 - Añadirle comportamiento
 - Poder usarlos en contestos donde se necesitan objetos. <List>.
 
-
+```java
 Integer i = 7; // Autoboxing
 - Integer i = new Integer(7);
 
 int j = i; // Unboxing
 int j = i.intValue();
+```
 ---
 
 ## 22. Tipos enumerados
