@@ -342,7 +342,9 @@ public class DepartamentoList {
 }
 
 ```
-
+Prof: con List:
+- Facilito un tamaño dinámico e ilimitado.
+- Facilita el eliminado (no hay que gestionar el array), se delega en métodos de List.
 ---
 
 ## 10. Al igual que ocurre con las excepciones en Java, que pueden encerrar causas (que son excepciones), de forma recursiva, suponen un tipo especial de composiciones, denominadas composiciones recursivas. Pon un ejemplo en Java de una `Persona`, que sea inmutable, y que tiene una madre, que es otra `Persona`. Haz un main con un ejemplo de uso con una familia de personas, desde el nieto hasta la abuela. Enumera algún otro ejemplo clásico de composiciones recursivas.
