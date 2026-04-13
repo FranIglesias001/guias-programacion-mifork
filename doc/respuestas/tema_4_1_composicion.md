@@ -392,6 +392,11 @@ public class Persona {
 }
 
 ```
+Prof:
+- Composiciones reflexivas o recursivas
+- Composiciones bidimensionales
+
+Las bidireccionales exigen programar cuidadosamente para mantener la consistencia. P.ej: Si añado n profesor al departamento, debo actualizar la referencia al Departamento desde Profesor.
 
 ---
 
