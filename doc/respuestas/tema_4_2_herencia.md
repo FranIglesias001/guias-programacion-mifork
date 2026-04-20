@@ -62,6 +62,16 @@ public class Main {
     }
 }
 ```
+Prof:
+Composición -> "tiene un tiene varios"
+Herencia -> "es un"
+
+1. Compatibilidad de tipos
+```java
+    Soldado s = new Artillero ("pepe");
+``` 
+2. Herencia de estado(atributos) y comportamiento(métodos).
+
 
 ## 2. Al crear los soldados concretos, ¿cuántos constructores se ejecutan y en qué orden? ¿Qué significa `super` dentro de un constructor? Si la clase base no tiene visible el constructor sin parámetros, ¿debo llamar a `super` siempre? 
 
@@ -73,6 +83,12 @@ La palabra clave `super` utilizada como instrucción dentro de un constructor si
 
 Respecto a su obligatoriedad, si la clase base no posee un constructor visible que carezca de parámetros (un constructor por defecto), **es estrictamente obligatorio** realizar una llamada explícita a `super(...)` en la primera línea del constructor de la subclase. Si no se invoca, el compilador generará un error, dado que no tendría forma de saber con qué valores inicializar el estado que pertenece a la superclase.
 
+Prof:
+Un constructor por cada clase, de arriba a abajo.
+super: como debe invocarse desde la subclase.
+
+
+
 ## 3. Respecto a los objetos de subclases en memoria, los atributos privados de la superclase, ¿forman parte de una instancia de la subclase en memoria? En caso afirmativo ¿implica que se puedan usar desde el código de la subclase? Explícalo con el ejemplo de `Soldado` y alguna de sus subclases.
 
 ### Respuesta
@@ -82,6 +98,21 @@ Respecto a la disposición en memoria, la respuesta es afirmativa: todos los atr
 Sin embargo, que dichos datos existan físicamente en el objeto no implica que el código de la subclase posea permisos para acceder a ellos directamente. Debido a las reglas de encapsulación, un atributo declarado como privado en la superclase es totalmente opaco para las clases derivadas. El compilador bloqueará cualquier intento de lectura o escritura directa para proteger la integridad del estado de la clase base.
 
 En el ejemplo proporcionado, aunque un objeto de tipo `Zapador` posee físicamente la cadena de texto del `nombre` en su interior, si se intenta escribir una instrucción como `this.nombre = "Nuevo";` dentro de un método de `Zapador`, el compilador devolverá un error de visibilidad. La única manera en la que el `Zapador` puede interactuar con ese segmento de su propio estado es invocando métodos de acceso (getters o setters) que la clase `Soldado` haya dejado públicos o protegidos.
+
+```java
+public class Medico extends {
+    private int minas;
+
+    public Zapador(String nombre, int minas) {
+        super(nombre);
+        this.minas = minas;
+    }
+
+    public int getMinas() { return minas; }
+    public void ponerMina() { System.out.println("Mina plantada."); }
+
+}
+```
 
 ## 4. ¿Qué implica en términos de **extensibilidad** de código el hecho de que sean compatibles a nivel de tipos? Ilustra esto añadiendo un nuevo tipo de `Soldado` y demostrando que el código para pedir el saludo a todos los soldados no se modifica.
 
@@ -186,7 +217,11 @@ class Zapador extends Soldado {
 ```
 
 ## 7. En los lenguajes orientados a objetos ¿hay una **clase base** para todos los objetos? ¿Ocurre en todos los lenguajes? ¿Qué ocurre en Java?
-
+Prof:
+C++ no tiene una clase base implícita. Java sí la tiene: Object
+```java
+List<String>;
+```
 ### Respuesta
 
 En el paradigma de la orientación a objetos, el concepto de una clase base universal —una única raíz de la que desciendan directa o indirectamente todos los objetos— es una decisión arquitectónica del diseño de cada lenguaje. Una estructura de árbol único facilita que el ecosistema entero comparta un comportamiento básico estándar y simplifica la creación de colecciones genéricas de datos.
@@ -196,7 +231,8 @@ Sin embargo, esto **no ocurre en todos los lenguajes** que permiten el paradigma
 En el caso específico de **Java**, sí existe una clase base absoluta para todo el sistema: la clase `Object` (ubicada en `java.lang.Object`). Si al programar una clase nueva el desarrollador no indica que herede de ninguna otra clase de forma explícita, el compilador inyecta automáticamente de forma invisible una herencia hacia `Object`. Esto asegura que absolutamente toda instancia en un programa Java posea, de base, métodos comunes como `equals()`, `toString()` o `hashCode()`.
 
 ## 8. ¿Qué es la **"herencia múltiple"**? ¿Existe en Java herencia múltiple?
-
+prof:
+herencia múltiple -> heredar de + de una clase. En Java no está soportada porque lo decidieron así para evitar problemas como herencia en diamante.
 ### Respuesta
 
 La **herencia múltiple** es una característica avanzada presente en algunos lenguajes de programación mediante la cual una subclase puede heredar el estado y comportamiento de dos o más superclases simultáneamente. Resulta útil para modelar entidades que poseen naturalezas combinadas de distintos dominios. Sin embargo, introduce severos conflictos estructurales, siendo el más conocido el "problema del diamante": si dos superclases poseen un método con exactamente la misma firma o atributos con el mismo nombre, el compilador debe resolver ambigüedades respecto a cuál versión hereda la clase hija.
@@ -348,3 +384,12 @@ class TrabajadorC {
     }
 }
 ```
+
+
+prof: ej 10,11,12
+- No usar herencia solo por reutilizar código.
+    - Debe usarse cuando se necesita la compatibilidad de tipos.
+
+- Usar herencia implica un fuerte acoplamiento desde la clase derivaad hacia la clase abse.
+    - La clase derivada depende mucho de la base.
+    - Cambios internos en la clase base podrían llegar a afectar a las derivadas.
